@@ -9,9 +9,10 @@ $email = addslashes($_POST['email']);
 $name = addslashes($_POST['name']);
 $phoneno = $_POST['phoneno'];
 $homeaddress = $_POST['homeaddress'];
+$pass = sha1($password);
+$password = $_POST['password'];
 
-
-$sqlinsert = "INSERT INTO `registration`(`user_email`, `user_name`, `user_phoneno`, `user_homeaddress`)";
+$sqlinsert = "INSERT INTO `registration`(`user_email`, `user_name`, `user_phoneno`, `user_homeaddress`, `user_password`)"; VALUES (`$email`, `$name`, `$phoneno`, `$homeaddress`, `$password`);
 if ($conn->query($sqlinsert) === TRUE) {
     $response = array('status' => 'success', 'data' => null);
     $filename = mysqli_insert_id($conn);

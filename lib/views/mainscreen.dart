@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '/models/user.dart';
+import 'package:mytutor/views/subjectscreen.dart';
+import 'package:mytutor/views/tutorscreen.dart';
 
 class MainScreen extends StatefulWidget {
   final User user;
@@ -13,32 +15,17 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Subject',
-      style: optionStyle,
-    ),
-    Text(
-      'Tutor',
-      style: optionStyle,
-    ),
-    Text(
-      'Subsribe',
-      style: optionStyle,
-    ),
-    Text(
-      'Favorite',
-      style: optionStyle,
-    ),
-    Text(
-      'Profile',
-      style: optionStyle,
-    ),
-  ];
+  late List<Widget> _pages;
+  @override
+  void initState() {
+    _pages = <Widget>[
+      subjectscreen(user: widget.user),
+      subjectscreen(user: widget.user),
+      subjectscreen(user: widget.user),
+    ];
+  }
 
+  int _selectedIndex = 0;
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -62,25 +49,15 @@ class _MainScreenState extends State<MainScreen> {
                       "https://yt3.ggpht.com/a/AATXAJyAi_BhKSr-j8Od_1jghYmAERow_f3lBy-gMA=s900-c-k-c0xffffffff-no-rj-mo"),
                 )),
             _createDrawerItem(
-              icon: Icons.book,
-              text: 'My subjects',
-              onTap: () {},
-            ),
-            _createDrawerItem(
-              icon: Icons.schedule,
-              text: 'Schedule',
-              onTap: () {},
-            ),
-            _createDrawerItem(
-              icon: Icons.settings,
-              text: 'Settings',
+              icon: Icons.logout,
+              text: 'Logout',
               onTap: () {},
             ),
           ],
         ),
       ),
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: _pages.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

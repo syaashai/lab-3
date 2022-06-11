@@ -19,12 +19,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late double screenHeight, screenWidth, ctrwidth;
   String pathAsset = 'assets/camera.png';
   var _image;
-  final TextEditingController _premailController = TextEditingController();
-  final TextEditingController _prnameController = TextEditingController();
-  final TextEditingController _prphonenoController = TextEditingController();
-  final TextEditingController _prpasswordController = TextEditingController();
-  final TextEditingController _prpasswordController2 = TextEditingController();
-  final TextEditingController _prhomeaddressController =
+  final TextEditingController _useremailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _userphonenoController = TextEditingController();
+  final TextEditingController _userpasswordController = TextEditingController();
+  final TextEditingController _userpasswordController2 =
+      TextEditingController();
+  final TextEditingController _userhomeaddressController =
       TextEditingController();
   bool _agree = false;
   final _formKey = GlobalKey<FormState>();
@@ -41,172 +42,248 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
 
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('New User'),
-        ),
-        body: SingleChildScrollView(
-          child: Center(
+      appBar: AppBar(
+        title: const Text('New User'),
+      ),
+      body: SingleChildScrollView(
+        child: Center(
             child: SizedBox(
-              width: ctrwidth,
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(32, 32, 32, 32),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Text(
-                            "Registration Form",
-                            style: TextStyle(fontSize: 24),
-                          ),
-                          const SizedBox(height: 2),
-                          TextFormField(
-                            controller: _prnameController,
-                            decoration: InputDecoration(
-                                labelText: 'Name',
-                                prefixIcon: const Icon(Icons.person),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5.0))),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter valid name';
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(height: 5),
-                          TextFormField(
-                            controller: _premailController,
-                            decoration: InputDecoration(
-                                labelText: 'Email',
-                                prefixIcon: const Icon(Icons.email),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5.0))),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter valid email';
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(height: 5),
-                          TextFormField(
-                            controller: _prphonenoController,
-                            decoration: InputDecoration(
-                                labelText: 'Phone number',
-                                prefixIcon: const Icon(Icons.phone),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5.0))),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter valid phone number';
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(height: 5),
-                          TextFormField(
-                            controller: _prhomeaddressController,
-                            decoration: InputDecoration(
-                                labelText: 'Home address',
-                                prefixIcon: const Icon(Icons.home),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5.0))),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter valid home address';
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(height: 5),
-                          Row(children: [
-                            Flexible(
-                              child: TextFormField(
-                                controller: _prpasswordController,
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                    labelText: 'Password',
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0))),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter your password';
-                                  }
-                                  if (_prpasswordController.text !=
-                                      _prpasswordController2.text) {
-                                    return "Your password does not match";
-                                  }
-                                  if (value.length < 6) {
-                                    return "Password must be at least 6 characters";
-                                  }
-                                  return null;
-                                },
-                              ),
-                              flex: 1,
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Flexible(
-                              child: TextFormField(
-                                controller: _prpasswordController2,
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                    labelText: 'Re-enter Password',
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0))),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter your password';
-                                  }
-                                  if (_prpasswordController.text !=
-                                      _prpasswordController2.text) {
-                                    return "Your password does not match";
-                                  }
-                                  if (value.length < 6) {
-                                    return "Password must be at least 6 characters";
-                                  }
-                                  return null;
-                                },
-                              ),
-                              flex: 1,
-                            ),
-                          ]),
-                          const SizedBox(height: 4),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Row(children: []),
-                                SizedBox(
-                                    width: screenWidth,
-                                    height: 50,
-                                    child: ElevatedButton(
-                                      child: const Text("Register"),
-                                      onPressed: () {
-                                        _insertDialog();
-                                      },
-                                    ))
-                              ])
-                        ],
-                      ),
+                width: ctrwidth,
+                child: Form(
+                  key: _formKey,
+                  child: Column(children: [
+                    const SizedBox(height: 0),
+                    Card(
+                      child: GestureDetector(
+                          onTap: () => {_takePictureDialog()},
+                          child: SizedBox(
+                              height: screenHeight / 3.9,
+                              width: screenWidth,
+                              child: _image == null
+                                  ? Image.asset(pathAsset)
+                                  : Image.file(
+                                      _image,
+                                      fit: BoxFit.cover,
+                                    ))),
                     ),
-                  ],
-                ),
-              ),
+                    const SizedBox(height: 2),
+                    TextFormField(
+                      controller: _usernameController,
+                      decoration: InputDecoration(
+                          labelText: 'Name',
+                          prefixIcon: const Icon(Icons.person),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0))),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter valid name';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 5),
+                    TextFormField(
+                      controller: _useremailController,
+                      decoration: InputDecoration(
+                          labelText: 'Email',
+                          prefixIcon: const Icon(Icons.email),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0))),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter valid email';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 5),
+                    TextFormField(
+                      controller: _userphonenoController,
+                      decoration: InputDecoration(
+                          labelText: 'Phone number',
+                          prefixIcon: const Icon(Icons.phone),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0))),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter valid phone number';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 5),
+                    TextFormField(
+                      controller: _userhomeaddressController,
+                      decoration: InputDecoration(
+                          labelText: 'Home address',
+                          prefixIcon: const Icon(Icons.home),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0))),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter valid home address';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 5),
+                    Row(children: [
+                      Flexible(
+                        child: TextFormField(
+                          controller: _userpasswordController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                              labelText: 'Password',
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0))),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your password';
+                            }
+                            if (_userpasswordController.text !=
+                                _userpasswordController2.text) {
+                              return "Your password does not match";
+                            }
+                            if (value.length < 6) {
+                              return "Password must be at least 6 characters";
+                            }
+                            return null;
+                          },
+                        ),
+                        flex: 1,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Flexible(
+                        child: TextFormField(
+                          controller: _userpasswordController2,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                              labelText: 'Re-enter Password',
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0))),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your password';
+                            }
+                            if (_userpasswordController.text !=
+                                _userpasswordController2.text) {
+                              return "Your password does not match";
+                            }
+                            if (value.length < 6) {
+                              return "Password must be at least 6 characters";
+                            }
+                            return null;
+                          },
+                        ),
+                        flex: 1,
+                      ),
+                    ]),
+                    const SizedBox(height: 4),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Row(children: []),
+                          SizedBox(
+                            width: screenWidth,
+                            height: 50,
+                            child: ElevatedButton(
+                              child: const Text("Register"),
+                              onPressed: () {
+                                _insertDialog();
+                              },
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                        ]),
+                  ]),
+                ))),
+      ),
+    );
+  }
+
+  _takePictureDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+            title: const Text(
+              "Select from",
             ),
-          ),
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                TextButton.icon(
+                    onPressed: () => {
+                          Navigator.of(context).pop(),
+                          _galleryPicker(),
+                        },
+                    icon: const Icon(Icons.browse_gallery),
+                    label: const Text("Gallery")),
+                TextButton.icon(
+                    onPressed: () =>
+                        {Navigator.of(context).pop(), _cameraPicker()},
+                    icon: const Icon(Icons.camera_alt),
+                    label: const Text("Camera")),
+              ],
+            ));
+      },
+    );
+  }
+
+  _galleryPicker() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+      maxHeight: 800,
+      maxWidth: 800,
+    );
+    if (pickedFile != null) {
+      _image = File(pickedFile.path);
+    }
+  }
+
+  _cameraPicker() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(
+      source: ImageSource.camera,
+      maxHeight: 800,
+      maxWidth: 800,
+    );
+    if (pickedFile != null) {
+      _image = File(pickedFile.path);
+    }
+  }
+
+  Future<void> _cropImage() async {
+    File? croppedFile = await ImageCropper().cropImage(
+        sourcePath: _image!.path,
+        aspectRatioPresets: [
+          CropAspectRatioPreset.square,
+          // CropAspectRatioPreset.ratio3x2,
+          // CropAspectRatioPreset.original,
+          // CropAspectRatioPreset.ratio4x3,
+          // CropAspectRatioPreset.ratio16x9
+        ],
+        androidUiSettings: const AndroidUiSettings(
+            toolbarTitle: 'Cropper',
+            toolbarColor: Colors.deepOrange,
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false),
+        iosUiSettings: const IOSUiSettings(
+          minimumAspectRatio: 1.0,
         ));
+    if (croppedFile != null) {
+      _image = croppedFile;
+      setState(() {});
+    }
   }
 
   void _insertDialog() {
-    if (_formKey.currentState!.validate() && _agree != null) {
+    if (_formKey.currentState!.validate() && _image != null) {
       _formKey.currentState!.save();
       showDialog(
         context: context,
@@ -227,7 +304,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 onPressed: () async {
                   Navigator.of(context).pop();
-                  _insertProduct();
+                  _insertUser();
                 },
               ),
               TextButton(
@@ -252,21 +329,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
   }
 
-  void _insertProduct() {
-    ProgressDialog pd = ProgressDialog(context: context);
-    pd.show(msg: 'Registration in progress..', max: 100);
-    String _prname = _prnameController.text;
-    String _premail = _premailController.text;
-    String _prphoneno = _prphonenoController.text;
-    String _prpassword = _prpasswordController.text;
-    String _prhomeaddress = _prhomeaddressController.text;
-    http.post(Uri.parse("http://10.143.164.161/mytutor/php/register_user.php"),
+  void _insertUser() {
+    String _username = _usernameController.text;
+    String _useremail = _useremailController.text;
+    String _userphoneno = _userphonenoController.text;
+    String _userpassword = _userpasswordController.text;
+    String _userhomeaddress = _userhomeaddressController.text;
+    String base64Image = base64Encode(_image!.readAsBytesSync());
+
+    http.post(Uri.parse("http://10.143.164.161/mytutor2/php/register_user.php"),
         body: {
-          "name": _prname,
-          "email": _premail,
-          "phoneno": _prphoneno,
-          "password": _prpassword,
-          "homeaddress": _prhomeaddress,
+          "name": _username,
+          "email": _useremail,
+          "phoneno": _userphoneno,
+          "password": _userpassword,
+          "homeaddress": _userhomeaddress,
+          "image": base64Image,
         }).then((response) {
       print(response.body);
       var data = jsonDecode(response.body);
@@ -286,8 +364,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             fontSize: 16.0);
-        pd.update(value: 0, msg: "Failed");
-        pd.close();
       }
     });
   }
