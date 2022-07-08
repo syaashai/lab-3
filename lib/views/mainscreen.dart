@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import '/models/user.dart';
 import 'package:mytutor/views/subjectscreen.dart';
 import 'package:mytutor/views/tutorscreen.dart';
+import 'package:mytutor/views/subscribescreen.dart';
+import 'package:mytutor/views/favoritescreen.dart';
+import 'package:mytutor/views/profilescreen.dart';
 
 class MainScreen extends StatefulWidget {
   final User user;
@@ -20,8 +23,10 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     _pages = <Widget>[
       subjectscreen(user: widget.user),
-      subjectscreen(user: widget.user),
-      subjectscreen(user: widget.user),
+      tutorscreen(user: widget.user),
+      subscribescreen(user: widget.user),
+      favoritescreen(user: widget.user),
+      profilescreen(user: widget.user),
     ];
   }
 
